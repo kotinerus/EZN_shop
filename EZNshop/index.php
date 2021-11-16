@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop</title>
+    <title>Space Shop</title>
     <link rel="icon" href="rocket.png" type="image">
     <link rel="stylesheet" href="styles.css">
 
@@ -37,7 +37,7 @@
             </div>
 
         </div>
-        <div></div>
+        <div class="box">TEST</div>
     </div>
 
 </body>
