@@ -25,7 +25,7 @@
     <input type="submit" value="Zaloguj" name="loguj">
 
     <?php
-         if (isset($_POST['loguj']))
+         if (isset($_POST['loguj']) && !empty($_POST['login']) && !(empty($_POST['haslo'])))
          {
              $login = $_POST['login'];
              $haslo = $_POST['haslo'];
@@ -35,7 +35,7 @@
                  $_SESSION['zalogowany'] = true;
                  $_SESSION['login'] = $login;
                  echo "Zalogowany";
-                 header('Location: admin.php');
+                 header('Location: index_admin.php');
                 
             }
             else if (mysqli_fetch_assoc(mysqli_query($sql, "SELECT login, haslo FROM uzytkownicy WHERE login = '".$login."' AND haslo = '".$haslo."' AND id_user=2;")) > 0)
@@ -43,7 +43,7 @@
                  $_SESSION['zalogowany'] = true;
                  $_SESSION['login'] = $login;
                  echo "Zalogowany";
-                 header('Location: user.php');
+                 header('Location: index_glowna.php');
             }
             else echo "Wpisano złe dane.";
          }
