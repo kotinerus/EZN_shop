@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 19 Lis 2021, 12:11
+-- Czas generowania: 19 Lis 2021, 12:57
 -- Wersja serwera: 10.1.40-MariaDB
 -- Wersja PHP: 7.3.5
 
@@ -51,7 +51,19 @@ INSERT INTO `filmy` (`id_filmu`, `tytul`, `opis`, `ocena`, `cena`, `ilosc`, `obr
 (8, 'STAR WARS: NOWA NADZIEJA', 'Złowrogie Imperium zawładnęło galaktyką. Uwięzionej przez Dartha Vadera księżniczce Lei z nieoczekiwaną pomocą przyjdą kosmiczny przemytnik Han Solo i młody Luke Skywalker.', 10, 18, 2, 'https://fwcdn.pl/fpo/07/59/759/7301614.6.jpg', 'akcja'),
 (9, 'INTERSTELLER', 'Byt ludzkości na Ziemi dobiega końca wskutek zmian klimatycznych. Grupa naukowców odkrywa tunel czasoprzestrzenny, który umożliwia poszukiwanie nowego domu.', 9, 28, 1, 'https://fwcdn.pl/fpo/56/29/375629/7670122.6.jpg', 'akcja'),
 (10, 'MILCZENIE OWIEC', 'Seryjny morderca i inteligentna agentka łączą siły, by znaleźć przestępcę obdzierającego ze skóry swoje ofiary.', 9, 16, 2, 'https://fwcdn.pl/fpo/10/47/1047/7714177.6.jpg', 'horror'),
-(11, 'PODZIEMNY KRĄG', 'Dwóch mężczyzn znudzonych rutyną zakłada klub, w którym co tydzień odbywają się walki na gołe pięści.', 7, 34, 3, 'https://fwcdn.pl/fpo/08/37/837/7522091.6.jpg', 'horror');
+(11, 'PODZIEMNY KRĄG', 'Dwóch mężczyzn znudzonych rutyną zakłada klub, w którym co tydzień odbywają się walki na gołe pięści.', 7, 34, 3, 'https://fwcdn.pl/fpo/08/37/837/7522091.6.jpg', 'horror'),
+(12, 'SAMI SWOI', 'Zwaśnione od wielu lat rodziny Pawlaków i Kargulów trafiają z Kresów Wschodnich na Ziemie Odzyskane.', 9, 35, 1, 'https://fwcdn.pl/fpo/11/13/1113/7036983.6.jpg', 'komedia'),
+(13, 'NIETYKALNI', 'Sparaliżowany milioner zatrudnia do opieki młodego chłopaka z przedmieścia, który właśnie wyszedł z więzienia.\r\n', 8, 45, 2, 'https://fwcdn.pl/fpo/33/90/583390/7752240.6.jpg', 'komedia'),
+(14, 'FORREST GUMP', 'Historia życia Forresta, chłopca o niskim ilorazie inteligencji z niedowładem kończyn, który staje się miliarderem i bohaterem wojny w Wietnamie.\r\n', 9, 48, 3, 'https://fwcdn.pl/fpo/09/98/998/7622529.6.jpg', 'komedia'),
+(15, 'ŻYCIE JEST PIĘKNE', 'Zamknięty w obozie koncentracyjnym wraz z synem Guido próbuje przekonać chłopca, że okrutna rzeczywistość jest jedynie formą zabawy dla dorosłych.\r\n', 6, 28, 3, 'https://fwcdn.pl/fpo/02/08/208/7520031.6.jpg', 'komedia'),
+(16, 'OBCY - 8. PASAŻER \"NOSTROMO\"', 'Załoga statku kosmicznego Nostromo odbiera tajemniczy sygnał i ląduje na niewielkiej planetoidzie, gdzie jeden z jej członków zostaje zaatakowany przez obcą formę życia.\r\n', 8, 79, 3, 'https://fwcdn.pl/fpo/09/80/980/7518072.6.jpg', 'horror'),
+(17, 'WYWIAD Z WAMPIREM', 'Historia wdowca, który by przestać cierpieć, zostaje przemieniony w wampira. Jego charakter nie pozwala mu zabijać ludzi z zimną krwią, ale nie jest na tyle silny, by wybrać samobójstwo.\r\n', 7, 63, 4, 'https://fwcdn.pl/fpo/10/02/1002/7314657.6.jpg', 'horror'),
+(18, 'COCO', 'Dwunastoletni meksykański chłopiec imieniem Miguel usiłuje zgłębić tajemnice rodzinnej legendy.\r\n', 8, 84, 4, 'https://fwcdn.pl/fpo/22/60/752260/7923212.6.jpg', 'familijny'),
+(19, 'KRÓL LEW', 'Targany niesłusznymi wyrzutami sumienia po śmierci ojca mały lew Simba skazuje się na wygnanie, rezygnując z przynależnego mu miejsca na czele stada.\r\n', 9, 41, 3, 'https://fwcdn.pl/fpo/68/78/6878/7389475.6.jpg', 'familijny'),
+(20, 'SPIDER-MAN UNIWERSUM', 'Miles Morales po ukąszeniu przez radioaktywnego pająka staje do walki z nikczemnym Kingpinem. Pomogą mu w tym Spider-Manowie z innych wymiarów.\r\n', 6, 56, 3, 'https://fwcdn.pl/fpo/32/33/743233/7866074.6.jpg', 'familijny'),
+(21, 'JAK WYTRESOWAĆ SMOKA', 'Chuderlawy Wiking przewróci porządek w wiosce, kiedy zamiast zabić w ramach inicjacji jakiegoś smoka, zaprzyjaźni się z najgroźniejszym z nich.\r\n', 8, 83, 3, 'https://fwcdn.pl/fpo/10/14/331014/7919342.6.jpg', 'familijny'),
+(22, 'EGZORCYSTA', 'Kiedy dwunastoletnia dziewczynka zostaje opętana przez diabła, a lekarze nie są w stanie jej pomóc, przerażona matka kontaktuje się z egzorcystą.\r\n', 5, 49, 2, 'https://fwcdn.pl/fpo/13/15/1315/7368591.6.jpg', 'horror'),
+(23, 'GREEN BOOK', 'Drobny cwaniaczek z Bronksu zostaje szoferem ekstrawaganckiego muzyka z wyższych sfer i razem wyruszają na wielotygodniowe tournée.\r\n', 8, 64, 2, 'https://fwcdn.pl/fpo/96/30/809630/7875499.6.jpg', 'komedia');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -71,7 +83,7 @@ ALTER TABLE `filmy`
 -- AUTO_INCREMENT dla tabeli `filmy`
 --
 ALTER TABLE `filmy`
-  MODIFY `id_filmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_filmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
