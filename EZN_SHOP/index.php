@@ -47,6 +47,7 @@
     </div>
     <div class="main">
         TEST1
+        TEST2
         <?php
 
         $zapakcja = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz FROM filmy");
