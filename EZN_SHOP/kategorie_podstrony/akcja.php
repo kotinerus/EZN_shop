@@ -17,6 +17,7 @@
     $user = "root";
 
     $conn = mysqli_connect($server, $user, $password, $databse);
+    mysqli_query($conn, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
     ?>
     <div class="menu1">
         <div class="logo">
@@ -47,9 +48,9 @@
     <div class="main">
         <?php
 
-        $zapakcja = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz FROM filmy WHERE kategoria = 'akcja'");
+        $zapakcja = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz, link FROM filmy WHERE kategoria = 'akcja'");
         while ($za = mysqli_fetch_array($zapakcja)) {
-            echo "<section class='sekcje'>" . "<img src='" . $za['obraz'] . "'class='img_sekcja'>" . "<h3>" . $za['tytul'] . "</h3>" . "<br>" . "Cena " . $za['cena'] . "zł<br>ocena " . $za['ocena'] . "<br><button>SPRAWDŹ</button></section>";
+            echo "<section class='sekcje'><a href='". $za['link'] . "'><img src='" . $za['obraz'] . "'class='img_sekcja'></a>" . "<h4>" . $za['tytul'] . "</h4>" . "<br>" . "Cena " . $za['cena'] . "zł<br>ocena " . $za['ocena'] . "<br></section>";
         }
 
         mysqli_close($conn);
