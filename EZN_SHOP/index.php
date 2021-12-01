@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Shop</title>
     <link rel="stylesheet" href="style/styles.css">
+    <link rel="stylesheet" href="style/gwiazdki.css">
 </head>
 
 <body>
@@ -18,6 +19,7 @@
     $user = "root";
 
     $conn = mysqli_connect($server, $user, $password, $databse);
+    mysqli_query($conn, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
     ?>
     <div class="menu1">
         <div class="logo">
@@ -48,15 +50,43 @@
     <div class="main">
         <?php
 
-        $zapakcja = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz FROM filmy");
+        $zapakcja = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz, link FROM filmy");
         while ($za = mysqli_fetch_array($zapakcja)) {
-            echo "<section class='sekcje'><img src='" . $za['obraz'] . "' class='img_sekcja'><h3>" . $za['tytul'] . "</h3>" . "<br>Cena " . $za['cena'] . "zł<br>ocena " . $za['ocena'] . "<br><button>SPRAWDŹ</button></section>";
+            echo "<section class='sekcje'><a href='/strona/EZN_shop-main/EZN_SHOP/kategorie_podstrony/".$za['link']."'>
+            <img src='" . $za['obraz'] . "' class='img_sekcja'></a><h3>" . $za['tytul'] . "
+            </h3>" . "<br>Cena " . $za['cena'] . "zł<br> " . zrobGwiazdki($za['ocena']) . "<div class='gwiazdki'></div>"."<br></section>";
         }
 
         mysqli_close($conn);
         ?>
 
     </div>
+    <?php
+    function zrobGwiazdki($ile) {
+    
+        $gwiazdkaZolta = "<img src='../EZN_SHOP/ikony/ratingStar.png' class='ratingStar'>";
+    
+        $gwiazdkaHalf  = "<img src='../EZN_SHOP/ikony/ratingHalfStar.png' class='ratingStar'>";
+    
+        $gwiazdkaSzara = "<img src='../EZN_SHOP/ikony/ratingGrayStar.png' class='ratingStar'>";
+    
+    
+        $zolte = ($ile - 1) / 2;
+    
+        $szare = (9 - $ile) / 2;
+    
+        $wynik = "";
+    
+        for ($licznik = 0; $licznik < $zolte; $licznik++) $wynik .= $gwiazdkaZolta;
+    
+            if (($ile % 2))                                  
+                $wynik .= $gwiazdkaHalf;
+    
+                for ($licznik = 0; $licznik < $szare; $licznik++) $wynik .= $gwiazdkaSzara;
+    
+        return $wynik;
+    }
+    ?>
 
 
 

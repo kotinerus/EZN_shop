@@ -18,6 +18,7 @@
     $user = "root";
 
     $conn = mysqli_connect($server, $user, $password, $databse);
+    mysqli_query($conn, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
     ?>
     <div class="menu1">
         <div class="logo">
@@ -48,9 +49,9 @@
     <div class="main">
         <?php
 
-        $zapfamilijny = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz FROM filmy WHERE kategoria = 'familijny'");
+        $zapfamilijny = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz, link FROM filmy WHERE kategoria = 'familijny'");
         while ($zf = mysqli_fetch_array($zapfamilijny)) {
-            echo "<section class='sekcje'><img src='" . $zf['obraz'] . "' class='img_sekcja'><h3>" . $zf['tytul'] . "</h3>" . "<br>Cena " . $zf['cena'] . "zł<br>ocena " . $zf['ocena'] . "<br><button>SPRAWDŹ</button></section>";
+            echo "<section class='sekcje'><a href='". $zf['link'] . "'><img src='" . $zf['obraz'] . "'class='img_sekcja'></a>" . "<h4>" . $zf['tytul'] . "</h4>" . "<br>" . "Cena " . $zf['cena'] . "zł<br>ocena " . $zf['ocena'] . "<br></section>";
         }
 
         mysqli_close($conn);

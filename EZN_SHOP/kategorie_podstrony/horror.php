@@ -18,6 +18,7 @@
     $user = "root";
 
     $conn = mysqli_connect($server, $user, $password, $databse);
+    mysqli_query($conn, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
     ?>
     <div class="menu1">
         <div class="logo">
@@ -48,9 +49,9 @@
     <div class="main">
         <?php
 
-        $zaphorror = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz FROM filmy WHERE kategoria = 'horror'");
+        $zaphorror = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz, link FROM filmy WHERE kategoria = 'horror'");
         while ($zh = mysqli_fetch_array($zaphorror)) {
-            echo "<section class='sekcje'><img src='" . $zh['obraz'] . "' class='img_sekcja'><h3>" . $zh['tytul'] . "</h3>" . "<br>Cena " . $zh['cena'] . "zł<br>ocena " . $zh['ocena'] . "<br><button>SPRAWDŹ</button></section>";
+            echo "<section class='sekcje'><a href='". $zh['link'] . "'><img src='" . $zh['obraz'] . "'class='img_sekcja'></a>" . "<h4>" . $zh['tytul'] . "</h4>" . "<br>" . "Cena " . $zh['cena'] . "zł<br>ocena " . $zh['ocena'] . "<br></section>";
         }
 
         mysqli_close($conn);

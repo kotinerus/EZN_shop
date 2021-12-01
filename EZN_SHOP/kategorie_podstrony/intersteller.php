@@ -47,16 +47,15 @@
         </div>
     </div>
     <div class="main">
+
         <?php
 
-        $zapkomedia = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz, link FROM filmy WHERE kategoria = 'komedia'");
-        while ($zk = mysqli_fetch_array($zapkomedia)) {
-            echo "<section class='sekcje'><a href='". $zk['link'] . "'><img src='" . $zk['obraz'] . "'class='img_sekcja'></a>" . "<h4>" . $zk['tytul'] . "</h4>" . "<br>" . "Cena " . $zk['cena'] . "zł<br>ocena " . $zk['ocena'] . "<br></section>";
-        }
-
-        mysqli_close($conn);
+             $zapfamilijny = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz, link, opis FROM filmy WHERE tytul = 'INTERSTELLER'");
+             while ($zf = mysqli_fetch_array($zapfamilijny)) {
+                 echo "<section class='sekcje'><img src='" . $zf['obraz'] . "'class='img_sekcja'>" . "<h4>" . $zf['tytul']. "</h4>" . "<br>" . "Cena " . $zf['cena'] . "zł<br>ocena " . $zf['ocena'] . "<br></section><section class='sekcje'>" . $zf['opis']. "</section>";
+             }
+                 mysqli_close($conn);
         ?>
-
     </div>
 
 
