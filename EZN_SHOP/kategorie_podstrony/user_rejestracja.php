@@ -58,34 +58,35 @@
             <form method="POST">
                 <input type="text" placeholder="LOGIN" name="login"><br><br>
                 <input type="password" placeholder="HASŁO" name="haslo"><br><br>
-                <input class="button_form" type="submit" value="ZALOGUJ" name="loguj">
-                <a href="user_rejestracja.php"><input class="button_form" type="button" value="REJESTRACJA" name="rejestruj"></a><br>
-                <?php
-            if (isset($_POST['loguj']) && !empty($_POST['login']) && !(empty($_POST['haslo'])))
-            {
-                $login = $_POST['login'];
-                $haslo = $_POST['haslo'];
-                
-                if (mysqli_fetch_assoc(mysqli_query($sql, "SELECT login, haslo FROM uzytkownicy WHERE login = '".$login."' AND haslo = '".$haslo."' AND id_user=2;")) > 0)
-                {
-                    $_SESSION['zalogowany'] = true;
-                    $_SESSION['login'] = $login;
-                    echo "Zalogowany";
-                    header('Location: ../index.php');
+                <a href="user.php"><input class="button_form" type="button" value="ZALOGUJ" name="loguj"></a>
+                <input class="button_form" type="submit" value="REJESTRACJA" name="rejestruj"><br>
+            </form>
+                <?php 
+                    if (isset($_POST['rejestruj']) && !empty($_POST['login']) && !(empty($_POST['haslo'])))
+                    {
+                    $login = $_POST['login'];
+                    $haslo = $_POST['haslo'];
+
+                        if (mysqli_num_rows(mysqli_query($sql, "SELECT login FROM uzytkownicy WHERE login = '".$login."';")) == 0)
+                        {
+                            
+                                mysqli_query($sql, "INSERT INTO `uzytkownicy` (`login`, `haslo`,`id_user`) VALUES ('".$login."', '".$haslo."',2);");
+                                
+                                echo "Konto zostało utworzone!";
+                                $_SESSION['zalogowany'] = true;
+                                $_SESSION['login'] = $login;
+                                
+                                header('Location: user.php');
+
+                            
+                        }
+                        else echo "Podany login jest już zajęty.";
                     
                 }
-                else if (mysqli_fetch_assoc(mysqli_query($sql, "SELECT login, haslo FROM uzytkownicy WHERE login = '".$login."' AND haslo = '".$haslo."' AND id_user=1;")) > 0)
-                {
-                    $_SESSION['zalogowany'] = true;
-                    $_SESSION['login'] = $login;
-                    echo "Zalogowany";
-                    header('Location: ../index_admin.php');
-                }
-                else echo "Wpisano złe dane.";
-            }
-            else echo "Nie wpisano żadnych danych.";
-            ?>
-            </form>
+                else echo "Podaj dane do rejestracji";
+
+                ?>
+             
         </div>
     </div>
 </body>

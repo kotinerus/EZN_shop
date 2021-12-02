@@ -8,11 +8,12 @@
     <title>Space Shop</title>
     <link rel="stylesheet" href="style/styles.css">
     <link rel="stylesheet" href="style/gwiazdki.css">
+    
 </head>
 
 <body>
     <?php
-
+      session_start();
     $databse = "filmy";
     $server = "localhost";
     $password = "";
@@ -35,7 +36,12 @@
             <a href="index.php" class="menu_pod"> <img src="ikony/shop.png" class="img_div"><br> SKLEP</a>
             <a href="kategorie_podstrony/koszyk.php" class="menu_pod"><img src="ikony/cart.png" class="img_div"><br>KOSZYK</a>
             <a href="kategorie_podstrony/kasa.php" class="menu_pod"><img src="ikony/register.png" class="img_div"><br>KASA</a>
-            <a href="kategorie_podstrony/user.php" class="menu_pod"><img src="ikony/user.png" class="img_div"><br>USER</a>
+            <a href="kategorie_podstrony/user.php" class="menu_pod"><img src="ikony/user.png" class="img_div"><br>
+            <?php   
+                echo $_SESSION['login'];
+            ?>
+        
+            </a>
             <a href="kategorie_podstrony/wyloguj.php" class="menu_pod"><img src="ikony/exit.png" class="img_div"><br>WYLOGUJ SIĘ</a>
         </div>
 
@@ -52,9 +58,9 @@
 
         $zapakcja = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz, link FROM filmy");
         while ($za = mysqli_fetch_array($zapakcja)) {
-            echo "<section class='sekcje'><a href='/strona/EZN_shop-main/EZN_SHOP/kategorie_podstrony/".$za['link']."'>
+            echo "<section class='sekcje'><a href='kategorie_podstrony/".$za['link']."'>
             <img src='" . $za['obraz'] . "' class='img_sekcja'></a><h3>" . $za['tytul'] . "
-            </h3>" . "<br>Cena " . $za['cena'] . "zł<br> " . zrobGwiazdki($za['ocena']) . "<div class='gwiazdki'></div>"."<br></section>";
+            </h3>" . "" . $za['cena'] . "zł <br>" . zrobGwiazdki($za['ocena']) . "<div class='gwiazdki'></div>"."<br><button>Kup teraz</button></section>";
         }
 
         mysqli_close($conn);
