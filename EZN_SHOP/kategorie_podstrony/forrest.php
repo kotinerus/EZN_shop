@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Shop</title>
     <link rel="stylesheet" href="../style/styles.css">
+    <link rel="stylesheet" href="../style/gwiazdki.css">
 </head>
 
 <body>
     <?php
-
+    session_start();
     $databse = "filmy";
     $server = "localhost";
     $password = "";
@@ -34,7 +35,11 @@
             <a href="../index.php" class="menu_pod"> <img src="../ikony/shop.png" class="img_div"><br> SKLEP</a>
             <a href="koszyk.php" class="menu_pod"><img src="../ikony/cart.png" class="img_div"><br>KOSZYK</a>
             <a href="kasa.php" class="menu_pod"><img src="../ikony/register.png" class="img_div"><br>KASA</a>
-            <a href="user.php" class="menu_pod"><img src="../ikony/user.png" class="img_div"><br>USER</a>
+            <a href="user.php" class="menu_pod"><img src="../ikony/user.png" class="img_div"><br>
+            <?php   
+                echo $_SESSION['login'];
+            ?>
+            </a>
             <a href="wyloguj.php" class="menu_pod"><img src="../ikony/exit.png" class="img_div"><br>WYLOGUJ SIĘ</a>
         </div>
 
@@ -52,12 +57,37 @@
 
              $zapfamilijny = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz, link, opis FROM filmy WHERE tytul = 'FORREST GUMP'");
              while ($zf = mysqli_fetch_array($zapfamilijny)) {
-                 echo "<section class='sekcje'><img src='" . $zf['obraz'] . "'class='img_sekcja'>" . "<h4>" . $zf['tytul']. "</h4>" . "<br>" . "Cena " . $zf['cena'] . "zł<br>ocena " . $zf['ocena'] . "<br></section><section class='sekcje'>" . $zf['opis']. "</section>";
+                 echo "<section class='sekcje'><img src='" . $zf['obraz'] . "'class='img_sekcja'>" . "<h4>" . $zf['tytul']. "</h4>" . "<br>" . "Cena " . $zf['cena'] . "zł<br> " . zrobGwiazdki($zf['ocena']) . "<div class='gwiazdki'></div>" . "<br></section><section class='opis'>" . $zf['opis']. "<br><br><button>DODAJ DO KOSZYKA</button></section>";
              }
                  mysqli_close($conn);
         ?>
     </div>
-
+    <?php
+    function zrobGwiazdki($ile) {
+    
+        $gwiazdkaZolta = "<img src='../ikony/ratingStar.png' class='ratingStar'>";
+    
+        $gwiazdkaHalf  = "<img src='../ikony/ratingHalfStar.png' class='ratingStar'>";
+    
+        $gwiazdkaSzara = "<img src='../ikony/ratingGrayStar.png' class='ratingStar'>";
+    
+    
+        $zolte = ($ile - 1) / 2;
+    
+        $szare = (9 - $ile) / 2;
+    
+        $wynik = "";
+    
+        for ($licznik = 0; $licznik < $zolte; $licznik++) $wynik .= $gwiazdkaZolta;
+    
+            if (($ile % 2))                                  
+                $wynik .= $gwiazdkaHalf;
+    
+                for ($licznik = 0; $licznik < $szare; $licznik++) $wynik .= $gwiazdkaSzara;
+    
+        return $wynik;
+    }
+    ?>
 
 
 </body>
