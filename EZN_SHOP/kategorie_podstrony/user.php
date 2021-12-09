@@ -45,14 +45,14 @@
                 <h2>SPACE SHOP</h2>
             </div>
         </div>
-        <?php           
-            session_start();
-            $user = "root";
-            $password= "";
-            $server= "localhost";
-            $database = "uzytkownicy";
-            $sql = mysqli_connect($server, $user, $password, $database);
-            
+        <?php
+        session_start();
+        $user = "root";
+        $password = "";
+        $server = "localhost";
+        $database = "uzytkownicy";
+        $sql = mysqli_connect($server, $user, $password, $database);
+
         ?>
         <div class="user_form">
             <form method="POST">
@@ -61,32 +61,26 @@
                 <input class="button_form" type="submit" value="ZALOGUJ" name="loguj">
                 <a href="user_rejestracja.php"><input class="button_form" type="button" value="REJESTRACJA" name="rejestruj"></a><br>
                 <?php
-            if (isset($_POST['loguj']) && !empty($_POST['login']) && !(empty($_POST['haslo'])))
-            {
-                $login = $_POST['login'];
-                $haslo = $_POST['haslo'];
-                
-                if (mysqli_fetch_assoc(mysqli_query($sql, "SELECT login, haslo FROM uzytkownicy WHERE login = '".$login."' AND haslo = '".$haslo."' AND id_user=2;")) > 0)
-                {
-                    $_SESSION['zalogowany'] = true;
-                    $_SESSION['login'] = $login;
-                    echo "Zalogowany";
-                    header('Location: ../index.php');
-                    
-                }
-                else if (mysqli_fetch_assoc(mysqli_query($sql, "SELECT login, haslo FROM uzytkownicy WHERE login = '".$login."' AND haslo = '".$haslo."' AND id_user=1;")) > 0)
-                {
-                    $_SESSION['zalogowany'] = true;
-                    $_SESSION['login'] = $login;
-                    echo "Zalogowany";
-                    header('Location: ../index_admin.php');
-                }
-                else echo "Wpisano złe dane.";
-            }
-            else echo "Nie wpisano żadnych danych.";
-            ?>
+                if (isset($_POST['loguj']) && !empty($_POST['login']) && !(empty($_POST['haslo']))) {
+                    $login = $_POST['login'];
+                    $haslo = $_POST['haslo'];
+
+                    if (mysqli_fetch_assoc(mysqli_query($sql, "SELECT login, haslo FROM uzytkownicy WHERE login = '" . $login . "' AND haslo = '" . $haslo . "' AND id_user=2;")) > 0) {
+                        $_SESSION['zalogowany'] = true;
+                        $_SESSION['login'] = $login;
+                        echo "Zalogowany";
+                        header('Location: ../index.php');
+                    } else if (mysqli_fetch_assoc(mysqli_query($sql, "SELECT login, haslo FROM uzytkownicy WHERE login = '" . $login . "' AND haslo = '" . $haslo . "' AND id_user=1;")) > 0) {
+                        $_SESSION['zalogowany'] = true;
+                        $_SESSION['login'] = $login;
+                        echo "Zalogowany";
+                        header('Location: ../index_admin.php');
+                    } else echo "Wpisano złe dane.";
+                } else echo "Nie wpisano żadnych danych.";
+                ?>
             </form>
         </div>
     </div>
 </body>
+
 </html>

@@ -37,7 +37,36 @@
         </div>
     </div>
     <div class="main">
-        <div class="div_test"><img class="img_div" src="../ikony/work.png"></div>
+        <section></section>
+        <img src="" alt="">
+        <div class="div_kosz">
+            <?php
+            $databse1 = "koszyk";
+            $server1 = "localhost";
+            $password1 = "";
+            $user1 = "root";
+            $_a = $_POST['kosz'];
+            $conn1 = mysqli_connect($server1, $user1, $password1, $databse1);
+            $kwerenda = "SELECT id, tytul, cena, url FROM `kosz`";
+            $pol = mysqli_query($conn1, $kwerenda);
+            while ($pole = mysqli_fetch_array($pol)) {
+
+                echo "<form action='' method='post'> 
+                <section class='sekcja_kosz'> 
+                <img class='img_div_sekcja' src='" . $pole['url'] . "'>" . "
+                <h3>"  . $pole['tytul'] . "</h3>
+                Cena:&nbsp" . $pole['cena'] . ",00zł<br>
+                <button type='submit' class='kosz' name='kosz' value='" . $pole['id'] . "'>USUŃ</button>
+
+                 </form>
+                </section>";
+            }
+            echo "<button>$_a</button>"
+            ?>
+
+
+
+        </div>
 
     </div>
 

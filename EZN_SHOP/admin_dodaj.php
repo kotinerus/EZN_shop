@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Shop</title>
     <link rel="stylesheet" href="style/styles.css">
-    <link rel="stylesheet" href="style/gwiazdki.css">
+    <link rel="stylesheet" href="style/style_admin.css">
+
 
 </head>
 
@@ -56,46 +57,50 @@
         </div>
     </div>
     <div class="main">
+        <h3>Panel ADMINA</h3>
+        <form action="" method="post">
+            Nazwa filmu <input type="text" name="nazwa">
+            Opis <input type="text" name="opis">
+            Ocena <input type="number" min="1" max="10" name="ocena"><br>
+            Cena <input type="number" min="1" name="cena">
+            Ilość <input type="number" min="1" name="ilosc">
+            Obraz <input type="text" name="obraz"><br>
+            Kategoria <input type="text" name="kategoria">
+            Link <input type="text" name="link" id="link">
+            <input type="submit" value="DODAJ" name="dodaj">
+        </form>
+
         <?php
 
-        $zapakcja = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz, link FROM filmy");
-        while ($za = mysqli_fetch_array($zapakcja)) {
-            echo "<section class='sekcje'><a href='kategorie_podstrony/" . $za['link'] . "'>
-            <img src='" . $za['obraz'] . "' class='img_sekcja'></a><h3>" . $za['tytul'] . "
-            </h3>" . "" . $za['cena'] . "zł <br>" . zrobGwiazdki($za['ocena']) . "<div class='gwiazdki'></div><button>Kup teraz</button></section>";
+        $databse = "filmy";
+        $server = "localhost";
+        $password = "";
+        $user = "root";
+        $conn2 = mysqli_connect($server, $user, $password, $databse);
+
+        if (isset($_POST['dodaj'])) {
+            if (
+                !empty($_POST['nazwa']) && !empty($_POST['opis']) && !empty($_POST['ocena']) && !empty($_POST['cena'])
+                && !empty($_POST['ilosc'])  && !empty($_POST['obraz'])  && !empty($_POST['kategoria']) && !empty($_POST['link'])
+            ) {
+
+                $nazwa = $_POST['nazwa'];
+                $opis = $_POST['opis'];
+                $ocena = $_POST['ocena'];
+                $cena = $_POST['cena'];
+                $ilosc = $_POST['ilosc'];
+                $obraz = $_POST['obraz'];
+                $kategoria = $_POST['kategoria'];
+                $link = $_POST['link'];
+
+                $kwerenda2 =  "INSERT INTO  filmy (`id_filmu`, `tytul`, `opis`, `ocena`, `cena`, `ilosc`, `obraz`, `kategoria`, `link`) 
+                VALUES (0, '$nazwa', '$opis', $ocena, $cena, $ilosc, '$obraz', '$kategoria', '$link')";
+                mysqli_query($conn2, $kwerenda2);
+            } else echo "WPISZ WARTOŚCI";
         }
-
-        mysqli_close($conn);
         ?>
-
     </div>
-    <?php
-    function zrobGwiazdki($ile)
-    {
 
-        $gwiazdkaZolta = "<img src='../EZN_SHOP/ikony/ratingStar.png' class='ratingStar'>";
-
-        $gwiazdkaHalf  = "<img src='../EZN_SHOP/ikony/ratingHalfStar.png' class='ratingStar'>";
-
-        $gwiazdkaSzara = "<img src='../EZN_SHOP/ikony/ratingGrayStar.png' class='ratingStar'>";
-
-
-        $zolte = ($ile - 1) / 2;
-
-        $szare = (9 - $ile) / 2;
-
-        $wynik = "";
-
-        for ($licznik = 0; $licznik < $zolte; $licznik++) $wynik .= $gwiazdkaZolta;
-
-        if (($ile % 2))
-            $wynik .= $gwiazdkaHalf;
-
-        for ($licznik = 0; $licznik < $szare; $licznik++) $wynik .= $gwiazdkaSzara;
-
-        return $wynik;
-    }
-    ?>
 
 
 

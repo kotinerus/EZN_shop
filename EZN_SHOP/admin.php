@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Shop</title>
     <link rel="stylesheet" href="style/styles.css">
-    <link rel="stylesheet" href="style/gwiazdki.css">
+    <link rel="stylesheet" href="style/style_admin.css">
 
 </head>
 
@@ -40,7 +40,7 @@
                 <?php
                 if (!empty($_SESSION['login'])) {
                     echo $_SESSION['login'];
-                } else echo "USER";
+                }
                 ?>
 
             </a>
@@ -56,46 +56,16 @@
         </div>
     </div>
     <div class="main">
-        <?php
+        <h3>Panel ADMINA</h3><br>
+        <a href="admin_dodaj.php">Dodaj produkt |</a>
+        <a href="usun_produkt.php">Usuń produkt |</a>
+        <a href="">Zmień produkt |</a>
+        <a href="">Zmień uprawnienia |</a>
+        <a href="">Pokaż log systemowy</a>
 
-        $zapakcja = mysqli_query($conn, "SELECT tytul, cena, ocena, ilosc, obraz, link FROM filmy");
-        while ($za = mysqli_fetch_array($zapakcja)) {
-            echo "<section class='sekcje'><a href='kategorie_podstrony/" . $za['link'] . "'>
-            <img src='" . $za['obraz'] . "' class='img_sekcja'></a><h3>" . $za['tytul'] . "
-            </h3>" . "" . $za['cena'] . "zł <br>" . zrobGwiazdki($za['ocena']) . "<div class='gwiazdki'></div><button>Kup teraz</button></section>";
-        }
 
-        mysqli_close($conn);
-        ?>
 
     </div>
-    <?php
-    function zrobGwiazdki($ile)
-    {
-
-        $gwiazdkaZolta = "<img src='../EZN_SHOP/ikony/ratingStar.png' class='ratingStar'>";
-
-        $gwiazdkaHalf  = "<img src='../EZN_SHOP/ikony/ratingHalfStar.png' class='ratingStar'>";
-
-        $gwiazdkaSzara = "<img src='../EZN_SHOP/ikony/ratingGrayStar.png' class='ratingStar'>";
-
-
-        $zolte = ($ile - 1) / 2;
-
-        $szare = (9 - $ile) / 2;
-
-        $wynik = "";
-
-        for ($licznik = 0; $licznik < $zolte; $licznik++) $wynik .= $gwiazdkaZolta;
-
-        if (($ile % 2))
-            $wynik .= $gwiazdkaHalf;
-
-        for ($licznik = 0; $licznik < $szare; $licznik++) $wynik .= $gwiazdkaSzara;
-
-        return $wynik;
-    }
-    ?>
 
 
 
