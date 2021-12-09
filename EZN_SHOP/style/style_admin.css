@@ -1,0 +1,24 @@
+.main {
+  float: left;
+  margin-top: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 94%;
+  height: 25%;
+  padding-top: 1%;
+  padding-right: 1%;
+  padding-left: 1%;
+  color: whitesmoke;
+  background-color: #26252d;
+  text-align: center;
+  font-size: 150%;
+}
+
+h3 {
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: whitesmoke;
+}

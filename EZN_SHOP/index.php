@@ -46,7 +46,11 @@
             <a href="kategorie_podstrony/kasa.php" class="menu_pod"><img src="ikony/register.png" class="img_div"><br>KASA</a>
             <a href="kategorie_podstrony/user.php" class="menu_pod"><img src="ikony/user.png" class="img_div"><br>
                 <?php
-                echo $_SESSION['login'];
+                if (!empty($_SESSION['login'])) {
+                    echo $_SESSION['login'];
+                } else {
+                    echo "ZALOGUJ";
+                }
                 ?>
 
             </a>
@@ -70,8 +74,8 @@
         while ($za = mysqli_fetch_array($zapakcja)) {
 
 
-            echo "<form action='' method='post'>
-    <section class='sekcje'>
+            echo "<section class='sekcje'>
+            <form action='' method='post'>
     <a href='kategorie_podstrony/" . $za['link'] . "'>
     <img name='obraz' src='" . $za['obraz'] . "' class='img_sekcja'></a>
     <h3 name='tytul'>" . $za['tytul'] . "</h3><h3>" . $za['cena'] . ",00zł</h3>
@@ -82,14 +86,16 @@
 
      </section>";
         }
-        $_a = $_POST['button'];
+        if (isset($_POST['button'])) {
+            $_a = $_POST['button'];
 
-        $kw = "SELECT tytul,ilosc,cena FROM `filmy` WHERE id_filmu=$_a";
-        $c = mysqli_query($conn, $kw);
-        while ($test = mysqli_fetch_array($c)) {
-            $kwerenda1 = "INSERT INTO `kosz`(`id`, `tytul`, `ilosc`, `cena`) VALUES (0,'" . $test['tytul'] . "'," . $test['ilosc'] . "," . $test['cena'] . ")";
-            mysqli_query($conn1, $kwerenda1);
-            echo "<button>" . $kwerenda1 . "</button>";
+            $kw = "SELECT tytul,ilosc,cena,obraz FROM `filmy` WHERE id_filmu=$_a";
+            $c = mysqli_query($conn, $kw);
+            while ($test = mysqli_fetch_array($c)) {
+                $kwerenda1 = "INSERT INTO `kosz`(`id`, `tytul`, `ilosc`, `cena`, `url`) VALUES (0,'" . $test['tytul'] . "'," .
+                    $test['ilosc'] . "," . $test['cena'] . ",'" . $test['obraz'] . "')";
+                mysqli_query($conn1, $kwerenda1);
+            }
         }
 
 
