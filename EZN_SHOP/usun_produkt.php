@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Shop</title>
     <link rel="stylesheet" href="style/styles.css">
-    <link rel="stylesheet" href="style/style_admin.css">
+    <link rel="stylesheet" href="style/gwiazdki.css">
 
 </head>
 
@@ -19,6 +19,14 @@
     $password = "";
     $user = "root";
 
+
+    $databse1 = "koszyk";
+    $server1 = "localhost";
+    $password1 = "";
+    $user1 = "root";
+
+    $conn1 = mysqli_connect($server1, $user1, $password1, $databse1);
+
     $conn = mysqli_connect($server, $user, $password, $databse);
     mysqli_query($conn, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
     ?>
@@ -27,7 +35,7 @@
             <img class="img_logo" src="ikony/rocket.png">
         </div>
         <div class="text_logo">
-            <a href="admin.php" class="menu_admin"> <img src="ikony/work.png" class="img_admin"><br>ADMIN</a>
+            <h1>SPACE SHOP</h1>
         </div>
     </div>
 
@@ -40,6 +48,9 @@
                 <?php
                 if (!empty($_SESSION['login'])) {
                     echo $_SESSION['login'];
+                    $user = $_SESSION['login'];
+                } else {
+                    echo "ZALOGUJ";
                 }
                 ?>
 
@@ -56,20 +67,70 @@
         </div>
     </div>
     <div class="main">
-        <h3>Panel ADMINA</h3><br>
-        Wybierz produkt
         <?php
-        echo "<input list='filmy'><datalist id='filmy'>";
-        $lista = mysqli_query($conn, "SELECT tytul FROM filmy");
-        while ($l = mysqli_fetch_array($lista)) {
-            echo  "<option value='" . $l['tytul'] . "'>";
-        }
-        echo "</datalist>";
-        ?>
-        <input type="submit" value="Usuń">
+        if (!empty($_POST['button'])) {
 
+
+            $c = $_POST['button'];
+            $kwerenda = "DELETE FROM `filmy` WHERE id_filmu=$c";
+            if (!empty($_POST['button'])) {
+                mysqli_query($conn, $kwerenda);
+            }
+        }
+
+        $zapakcja = mysqli_query($conn, "SELECT id_filmu, tytul, cena, ocena, ilosc, obraz, link FROM filmy");
+
+        while ($za = mysqli_fetch_array($zapakcja)) {
+
+
+            echo "<section class='sekcje'>
+            <form action='' method='post'>
+    <a href='kategorie_podstrony/" . $za['link'] . "'>
+    <img name='obraz' src='" . $za['obraz'] . "' class='img_sekcja'></a>
+    <h3 name='tytul'>" . $za['tytul'] . "</h3><h3>" . $za['cena'] . ",00zł</h3>
+    <br> " . zrobGwiazdki($za['ocena']) . "<div class='gwiazdki'></div>" . "<br>
+    <button type='submit' name='button' value='" . $za['id_filmu'] . "'>USUŃ</button>
+    
+    </form>
+
+     </section>";
+        }
+
+
+
+
+        mysqli_close($conn);
+        mysqli_close($conn1);
+        ?>
 
     </div>
+    <?php
+    function zrobGwiazdki($ile)
+    {
+
+        $gwiazdkaZolta = "<img src='../EZN_SHOP/ikony/ratingStar.png' class='ratingStar'>";
+
+        $gwiazdkaHalf  = "<img src='../EZN_SHOP/ikony/ratingHalfStar.png' class='ratingStar'>";
+
+        $gwiazdkaSzara = "<img src='../EZN_SHOP/ikony/ratingGrayStar.png' class='ratingStar'>";
+
+
+        $zolte = ($ile - 1) / 2;
+
+        $szare = (9 - $ile) / 2;
+
+        $wynik = "";
+
+        for ($licznik = 0; $licznik < $zolte; $licznik++) $wynik .= $gwiazdkaZolta;
+
+        if (($ile % 2))
+            $wynik .= $gwiazdkaHalf;
+
+        for ($licznik = 0; $licznik < $szare; $licznik++) $wynik .= $gwiazdkaSzara;
+
+        return $wynik;
+    }
+    ?>
 
 
 

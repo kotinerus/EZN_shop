@@ -133,6 +133,8 @@ a {
   position: absolute;
   width: 60%;
   top: 1%;
+  overflow-y: scroll;
+  overflow-x: hidden;
   bottom: 10%;
   left: 20%;
   height: 80%;

@@ -10,6 +10,16 @@
 </head>
 
 <body>
+    <?php
+    session_start();
+    $databse = "filmy";
+    $server = "localhost";
+    $password = "";
+    $user = "root";
+
+    $conn = mysqli_connect($server, $user, $password, $databse);
+    mysqli_query($conn, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+    ?>
     <div class="menu1">
         <div class="logo">
             <img class="img_logo" src="../ikony/rocket.png">
@@ -24,7 +34,17 @@
             <a href="../index.php" class="menu_pod"> <img src="../ikony/shop.png" class="img_div"><br> SKLEP</a>
             <a href="koszyk.php" class="menu_pod"><img src="../ikony/cart.png" class="img_div"><br>KOSZYK</a>
             <a href="kasa.php" class="menu_pod"><img src="../ikony/register.png" class="img_div"><br>KASA</a>
-            <a href="user.php" class="menu_pod"><img src="../ikony/user.png" class="img_div"><br>USER</a>
+            <a href="user.php" class="menu_pod"><img src="../ikony/user.png" class="img_div"><br>
+                <?php
+                if (!empty($_SESSION['login'])) {
+                    echo $_SESSION['login'];
+                    $user = $_SESSION['login'];
+                } else {
+                    echo "ZALOGUJ";
+                }
+                ?>
+
+            </a>
             <a href="wyloguj.php" class="menu_pod"><img src="../ikony/exit.png" class="img_div"><br>WYLOGUJ SIĘ</a>
         </div>
 
@@ -45,10 +65,15 @@
             $server1 = "localhost";
             $password1 = "";
             $user1 = "root";
-            $_a = $_POST['kosz'];
+
             $conn1 = mysqli_connect($server1, $user1, $password1, $databse1);
-            $kwerenda = "SELECT id, tytul, cena, url FROM `kosz`";
+            if (isset($_POST['kosz'])) {
+                $_c = $_POST['kosz'];
+                mysqli_query($conn1, "DELETE FROM `kosz` WHERE id=$_c");
+            }
+            $kwerenda = "SELECT * FROM `kosz` WHERE user ='" . $user . "'";
             $pol = mysqli_query($conn1, $kwerenda);
+
             while ($pole = mysqli_fetch_array($pol)) {
 
                 echo "<form action='' method='post'> 
@@ -59,9 +84,11 @@
                 <button type='submit' class='kosz' name='kosz' value='" . $pole['id'] . "'>USUŃ</button>
 
                  </form>
-                </section>";
+                
+            
+            </section>";
             }
-            echo "<button>$_a</button>"
+
             ?>
 
 
