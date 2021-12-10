@@ -18,8 +18,6 @@
     $server = "localhost";
     $password = "";
     $user = "root";
-
-
     $databse1 = "koszyk";
     $server1 = "localhost";
     $password1 = "";
@@ -45,15 +43,13 @@
             <a href="kategorie_podstrony/koszyk.php" class="menu_pod"><img src="ikony/cart.png" class="img_div"><br>KOSZYK</a>
             <a href="kategorie_podstrony/kasa.php" class="menu_pod"><img src="ikony/register.png" class="img_div"><br>KASA</a>
             <a href="kategorie_podstrony/user.php" class="menu_pod"><img src="ikony/user.png" class="img_div"><br>
-                <?php
-                if (!empty($_SESSION['login'])) {
+            <?php   
+                if(!empty($_SESSION['login'])){
                     echo $_SESSION['login'];
-                } else {
-                    echo "ZALOGUJ";
+                    $user = $_SESSION['login'];
                 }
-                ?>
-
-            </a>
+                else echo "USER";
+            ?>
             <a href="kategorie_podstrony/wyloguj.php" class="menu_pod"><img src="ikony/exit.png" class="img_div"><br>WYLOGUJ SIĘ</a>
         </div>
 
@@ -76,11 +72,11 @@
 
             echo "<section class='sekcje'>
             <form action='' method='post'>
-    <a href='kategorie_podstrony/" . $za['link'] . "'>
-    <img name='obraz' src='" . $za['obraz'] . "' class='img_sekcja'></a>
-    <h3 name='tytul'>" . $za['tytul'] . "</h3><h3>" . $za['cena'] . ",00zł</h3>
-    <br> " . zrobGwiazdki($za['ocena']) . "<div class='gwiazdki'></div>" . "<br>
-    <button type='submit' name='button' value='" . $za['id_filmu'] . "'>KUP</button>
+        <a href='kategorie_podstrony/" . $za['link'] . "'>
+        <img name='obraz' src='" . $za['obraz'] . "' class='img_sekcja'></a>
+        <h3 name='tytul'>" . $za['tytul'] . "</h3><h3>" . $za['cena'] . ",00zł</h3>
+        <br> " . zrobGwiazdki($za['ocena']) . "<div class='gwiazdki'></div>" . "<br>
+        <button type='submit' name='button' value='" . $za['id_filmu'] . "'>KUP</button>
     
     </form>
 
@@ -92,10 +88,11 @@
             $kw = "SELECT tytul,ilosc,cena,obraz FROM `filmy` WHERE id_filmu=$_a";
             $c = mysqli_query($conn, $kw);
             while ($test = mysqli_fetch_array($c)) {
-                $kwerenda1 = "INSERT INTO `kosz`(`id`, `tytul`, `ilosc`, `cena`, `url`) VALUES (0,'" . $test['tytul'] . "'," .
-                    $test['ilosc'] . "," . $test['cena'] . ",'" . $test['obraz'] . "')";
+                $kwerenda1 = "INSERT INTO `kosz`(`id`, `tytul`, `ilosc`, `cena`, `url`, `user`) VALUES (0,'" . $test['tytul'] . "'," .
+                    $test['ilosc'] . "," . $test['cena'] . ",'" . $test['obraz'] ."','". $user."')";
                 mysqli_query($conn1, $kwerenda1);
             }
+           echo "<button>".$kwerenda1."</button>";
         }
 
 
