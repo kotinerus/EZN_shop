@@ -59,13 +59,13 @@
     <div class="main">
         <h3>Panel ADMINA</h3>
         <form action="" method="post">
-            Nazwa filmu <input type="text" name="nazwa">
-            Opis <input type="text" name="opis">
+            Nazwa filmu <input type="text" name="nazwa"><br>
+            Opis <input type="text" name="opis"><br>
             Ocena <input type="number" min="1" max="10" name="ocena"><br>
-            Cena <input type="number" min="1" name="cena">
-            Ilość <input type="number" min="1" name="ilosc">
+            Cena <input type="number" min="1" name="cena"><br>
+            Ilość <input type="number" min="1" name="ilosc"><br>
             Obraz <input type="text" name="obraz"><br>
-            Kategoria <input type="text" name="kategoria">
+            Kategoria <input type="text" name="kategoria"><br>
             Link <input type="text" name="link" id="link">
             <input type="submit" value="DODAJ" name="dodaj">
         </form>

@@ -2,6 +2,7 @@ body {
   margin: 0%;
   padding: 0%;
   background-image: url("../ikony/cosmos.png");
+  background-attachment: fixed;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 .menu1 {
@@ -92,7 +93,7 @@ body {
 }
 .main {
   position: absolute;
-
+  height: 50%;
   left: 0%;
   right: 0%;
   top: 25%;
@@ -200,4 +201,7 @@ button:hover {
 }
 .img_admin {
   width: 50%;
+}
+#ilosc {
+  width: 10%;
 }

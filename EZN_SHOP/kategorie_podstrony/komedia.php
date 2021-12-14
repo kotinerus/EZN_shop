@@ -81,7 +81,6 @@
             $_a = $_POST['button'];
 
             $kw = "SELECT tytul,ilosc,cena,obraz FROM `filmy` WHERE id_filmu=$_a";
-            echo $kw;
             $c = mysqli_query($conn, $kw);
             while ($test = mysqli_fetch_array($c)) {
                 $kwerenda1 = "INSERT INTO `kosz`(`id`, `tytul`, `ilosc`, `cena`, `url`, `user`) VALUES (0,'" . $test['tytul'] . "'," .
