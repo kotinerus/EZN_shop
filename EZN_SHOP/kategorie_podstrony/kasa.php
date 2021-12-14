@@ -37,7 +37,8 @@
         </div>
     </div>
     <div class="main">
-        <div class="div_test"><img class="img_div" src="../ikony/work.png"></div>
+
+
 
     </div>
 

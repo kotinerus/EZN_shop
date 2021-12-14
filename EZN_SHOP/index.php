@@ -43,14 +43,13 @@
             <a href="kategorie_podstrony/koszyk.php" class="menu_pod"><img src="ikony/cart.png" class="img_div"><br>KOSZYK</a>
             <a href="kategorie_podstrony/kasa.php" class="menu_pod"><img src="ikony/register.png" class="img_div"><br>KASA</a>
             <a href="kategorie_podstrony/user.php" class="menu_pod"><img src="ikony/user.png" class="img_div"><br>
-            <?php   
-                if(!empty($_SESSION['login'])){
+                <?php
+                if (!empty($_SESSION['login'])) {
                     echo $_SESSION['login'];
                     $user = $_SESSION['login'];
-                }
-                else echo "USER";
-            ?>
-            <a href="kategorie_podstrony/wyloguj.php" class="menu_pod"><img src="ikony/exit.png" class="img_div"><br>WYLOGUJ SIĘ</a>
+                } else echo "USER";
+                ?>
+                <a href="kategorie_podstrony/wyloguj.php" class="menu_pod"><img src="ikony/exit.png" class="img_div"><br>WYLOGUJ SIĘ</a>
         </div>
 
         <div class="menu4">
@@ -62,7 +61,25 @@
         </div>
     </div>
     <div class="main">
+
         <?php
+        if (isset($_POST['button'])) {
+            $_a = $_POST['button'];
+            $_b = $_POST['ilosctowaru'];
+
+            $kw = "SELECT tytul,ilosc,cena,obraz FROM `filmy` WHERE id_filmu=$_a";
+            $c = mysqli_query($conn, $kw);
+            while ($test = mysqli_fetch_array($c)) {
+                $kwerenda1 = "INSERT INTO `kosz`(`id`, `id_film`, `tytul`, `ilosc`, `cena`, `url`, `user`) VALUES (0, $_a,'" . $test['tytul'] . "'," .
+                    $_b . "," . $test['cena'] . ",'" . $test['obraz'] . "','" . $user . "')";
+                mysqli_query($conn1, $kwerenda1);
+                $_d = $test['ilosc'] - $_b;
+                $kwerenda2 = "UPDATE `filmy` SET `ilosc`= '$_d' WHERE id_filmu=$_a ";
+                mysqli_query($conn, $kwerenda2);
+            }
+        }
+        $_POST['button'] = null;
+
 
 
 
@@ -75,28 +92,17 @@
         <a href='kategorie_podstrony/" . $za['link'] . "'>
         <img name='obraz' src='" . $za['obraz'] . "' class='img_sekcja'></a>
         <h3 name='tytul'>" . $za['tytul'] . "</h3><h3>" . $za['cena'] . ",00zł</h3>
-        <br> " . zrobGwiazdki($za['ocena']) . "<div class='gwiazdki'></div>" . "<br>
+         <h3>Dostępna ilość: " . $za['ilosc'] . "</h3> 
+        <br>" . zrobGwiazdki($za['ocena']) . "<div class='gwiazdki'></div>" . "<br>
+        <input type='number' name='ilosctowaru' id='ilosc' min='1'  max='" . $za['ilosc'] . "'>
         <button type='submit' name='button' value='" . $za['id_filmu'] . "'>KUP</button>
     
     </form>
 
      </section>";
         }
-        if (isset($_POST['button'])) {
-            $_a = $_POST['button'];
+        unset($_POST['button']);
 
-            $kw = "SELECT tytul,ilosc,cena,obraz FROM `filmy` WHERE id_filmu=$_a";
-            $c = mysqli_query($conn, $kw);
-            while ($test = mysqli_fetch_array($c)) {
-                $kwerenda1 = "INSERT INTO `kosz`(`id`, `tytul`, `ilosc`, `cena`, `url`, `user`) VALUES (0,'" . $test['tytul'] . "'," .
-                    $test['ilosc'] . "," . $test['cena'] . ",'" . $test['obraz'] ."','". $user."')";
-                mysqli_query($conn1, $kwerenda1);
-            }
-           echo "<button>".$kwerenda1."</button>";
-        }
-
-
-        mysqli_query($conn, $_a);
         mysqli_close($conn);
         mysqli_close($conn1);
         ?>

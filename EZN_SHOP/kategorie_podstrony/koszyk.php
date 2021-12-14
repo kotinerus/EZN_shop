@@ -19,6 +19,7 @@
 
     $conn = mysqli_connect($server, $user, $password, $databse);
     mysqli_query($conn, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
+
     ?>
     <div class="menu1">
         <div class="logo">
@@ -67,9 +68,28 @@
             $user1 = "root";
 
             $conn1 = mysqli_connect($server1, $user1, $password1, $databse1);
+            mysqli_query($conn1, "SET NAMES 'utf8' COLLATE 'utf8_polish_ci'");
             if (isset($_POST['kosz'])) {
+                $id = $_POST['kosz'];
+
+                $zap1 = "SELECT  `ilosc` FROM `kosz` WHERE id_film=$id";
+                $wynik1 = mysqli_query($conn1, $zap1);
+                $zap = "SELECT  `ilosc` FROM `filmy` WHERE id_filmu=$id";
+                $wynik = mysqli_query($conn, $zap);
+
+                while ($row = mysqli_fetch_array($wynik)) {
+                    $d = $row['ilosc'];
+                }
+                while ($row1 = mysqli_fetch_array($wynik1)) {
+                    $d1 = $row1['ilosc'];
+                }
+                $suma = $d1 + $d;
+                $zap = "UPDATE `filmy` SET `ilosc`='$suma' WHERE id_filmu=$id";
+                mysqli_query($conn, $zap);
+
                 $_c = $_POST['kosz'];
-                mysqli_query($conn1, "DELETE FROM `kosz` WHERE id=$_c");
+                $b = "DELETE FROM `kosz` WHERE id=$_c";
+                mysqli_query($conn1, "DELETE FROM `kosz` WHERE id_film=$_c");
             }
             $kwerenda = "SELECT * FROM `kosz` WHERE user ='" . $user . "'";
             $pol = mysqli_query($conn1, $kwerenda);
@@ -80,14 +100,17 @@
                 <section class='sekcja_kosz'> 
                 <img class='img_div_sekcja' src='" . $pole['url'] . "'>" . "
                 <h3>"  . $pole['tytul'] . "</h3>
+                <h4>Ilość:" . $pole['ilosc'] . "</h4>
                 Cena:&nbsp" . $pole['cena'] . ",00zł<br>
-                <button type='submit' class='kosz' name='kosz' value='" . $pole['id'] . "'>USUŃ</button>
+                <button type='submit' class='kosz' name='kosz' value='" . $pole['id_film'] . "'>USUŃ</button>
 
                  </form>
                 
             
             </section>";
             }
+
+
 
             ?>
 
